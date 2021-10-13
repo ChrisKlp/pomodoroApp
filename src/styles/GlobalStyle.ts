@@ -14,6 +14,7 @@ const GlobalStyle = createGlobalStyle`
     /* font-family: 'Roboto Slab', serif; */
     /* font-family: 'Space Mono', monospace; */
     font-size: 1.2rem;
+    background-color: ${({ theme }) => theme.grayishDark};
   }
 `;
 
