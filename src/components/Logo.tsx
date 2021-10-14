@@ -2,8 +2,11 @@ import styled from 'styled-components';
 import logo from 'assets/logo.svg';
 
 const Wrapper = styled.div`
+  margin-top: 3.2rem;
+  position: relative;
   display: grid;
   place-content: center;
+  z-index: 100;
 
   img {
     width: 11.7rem;
@@ -11,7 +14,7 @@ const Wrapper = styled.div`
   }
 `;
 
-type LogoProps = { 
+type LogoProps = {
   className?: string;
 };
 
