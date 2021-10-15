@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import styled, { css } from 'styled-components';
+import media from 'styles/mediaQueries';
 
 const Wrapper = styled.div`
   position: relative;
@@ -10,13 +11,22 @@ const Wrapper = styled.div`
   border-radius: 50rem;
   background-color: ${({ theme }) => theme.dark};
   z-index: 10;
+
+  @media (${media.md}) {
+    max-width: 37.3rem;
+    margin: 5.5rem auto 4.5rem;
+  }
+
+  @media (${media.md}) and (orientation: portrait) {
+    margin: 5.5rem auto 10.9rem;
+  }
 `;
 
 const Button = styled.button<{ active?: boolean }>`
   width: 33.3%;
   padding: 1.8rem 0;
   font-weight: bold;
-  font-weight: 1.2rem;
+  font-size: 1.2rem;
   text-align: center;
   color: ${({ theme }) => theme.lightFaded};
   border-radius: 3em;
@@ -25,6 +35,10 @@ const Button = styled.button<{ active?: boolean }>`
 
   :hover {
     color: ${({ theme }) => theme.light};
+  }
+
+  @media (${media.md}) {
+    font-size: 1.4rem;
   }
 
   ${({ active }) =>

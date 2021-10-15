@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import media from 'styles/mediaQueries';
 
 const Wrapper = styled.div`
   margin: 0 auto;
@@ -11,6 +12,12 @@ const Wrapper = styled.div`
   box-shadow: -5rem -5rem 10rem ${({ theme }) => theme.shadow},
     5rem 5rem 10rem #121530;
   z-index: 0;
+
+  @media (${media.md}) {
+    padding: 2.2rem;
+    width: 41rem;
+    height: 41rem;
+  }
 `;
 
 const Background = styled.div`
@@ -19,6 +26,10 @@ const Background = styled.div`
   background-color: ${({ theme }) => theme.dark};
   height: 100%;
   width: 100%;
+
+  @media (${media.md}) {
+    padding: 1.35rem;
+  }
 `;
 
 const Content = styled.div`
@@ -41,8 +52,6 @@ const ProgressBar = styled.svg`
   z-index: -1;
 
   circle {
-    width: 100%;
-    height: 100%;
     stroke: ${({ theme }) => theme.primary};
     fill: none;
     stroke-width: 8;
@@ -66,6 +75,12 @@ const Time = styled.p`
   text-align: center;
   letter-spacing: -0.4rem;
   color: ${({ theme }) => theme.light};
+
+  @media (${media.md}) {
+    font-size: 10rem;
+    line-height: 12.4rem;
+    letter-spacing: -0.5rem;
+  }
 `;
 
 const Button = styled.button`
@@ -80,6 +95,12 @@ const Button = styled.button`
   :hover {
     color: ${({ theme }) => theme.primary};
   }
+
+  @media (${media.md}) {
+    font-size: 1.6rem;
+    line-height: 2rem;
+    letter-spacing: 1.5rem;
+  }
 `;
 
 type TimerProps = {};
@@ -89,7 +110,11 @@ const Timer: React.FC<TimerProps> = () => {
     <Wrapper>
       <Background>
         <Content>
-          <ProgressBar xmlns="http://www.w3.org/2000/svg" version="1.1">
+          <ProgressBar
+            xmlns="http://www.w3.org/2000/svg"
+            version="1.1"
+            viewBox="0, 0, 248, 248"
+          >
             <circle cx="124" cy="124" r="120" />
           </ProgressBar>
           <Time>17:59</Time>

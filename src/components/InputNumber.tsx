@@ -6,7 +6,8 @@ import IconButton from './IconButton';
 
 const Wrapper = styled.div`
   position: relative;
-  width: 14rem;
+  max-width: 14rem;
+  width: 100%;
 `;
 
 const Input = styled.input`
@@ -15,6 +16,7 @@ const Input = styled.input`
   font-weight: bold;
   font-size: 1.4rem;
   line-height: 1.7rem;
+  font-family: inherit;
   color: ${({ theme }) => theme.grayishDark};
   background-color: ${({ theme }) => theme.gray};
   border-radius: 1rem;
@@ -47,17 +49,35 @@ type InputNumberProps = {};
 
 const InputNumber: React.FC<InputNumberProps> = () => {
   const [number, setNumber] = useState(0);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = Number(e.target.value);
+    if (value > 59) {
+      setNumber(Number(59));
+    } else {
+      setNumber(value);
+    }
+  };
+
   return (
     <Wrapper>
-      <Input type="number" value={number} />
+      <Input
+        type="number"
+        value={number}
+        onChange={handleChange}
+        min={0}
+        max={59}
+      />
       <Group>
         <IconButton
           src={arrowUp}
           onClick={() => setNumber((prev) => prev + 1)}
+          disabled={number >= 59}
         />
         <IconButton
           src={arrowDown}
           onClick={() => setNumber((prev) => prev - 1)}
+          disabled={number <= 0}
         />
       </Group>
     </Wrapper>
