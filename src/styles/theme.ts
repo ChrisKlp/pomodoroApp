@@ -12,6 +12,7 @@ const defaultTheme = {
   grayishDark: '#1E213F',
   dark: '#161932',
   shadow: '#272c5A',
+  fontFamily: 'Kumbh Sans',
 };
 
 const red = {

@@ -10,7 +10,7 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     min-width: 28rem;
-    font-family: 'Kumbh Sans', sans-serif;
+    font-family: ${({ theme }) => theme.fontFamily}, sans-serif;
     /* font-family: 'Roboto Slab', serif; */
     /* font-family: 'Space Mono', monospace; */
     font-size: 1.2rem;

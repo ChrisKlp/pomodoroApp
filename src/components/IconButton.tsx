@@ -21,11 +21,22 @@ type IconProps = {
   className?: string;
   onClick?: () => void;
   src: string;
+  disabled?: boolean;
 };
 
-const IconButton: React.FC<IconProps> = ({ className, onClick, src }) => {
+const IconButton: React.FC<IconProps> = ({
+  className,
+  onClick,
+  src,
+  disabled,
+}) => {
   return (
-    <Wrapper onClick={onClick} aria-label="Settings" className={className}>
+    <Wrapper
+      onClick={onClick}
+      aria-label="Settings"
+      className={className}
+      disabled={disabled}
+    >
       <Icon src={src} />
     </Wrapper>
   );

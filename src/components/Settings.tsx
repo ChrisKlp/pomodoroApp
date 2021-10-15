@@ -1,7 +1,7 @@
 import iconClose from 'assets/icon-close.svg';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { colors } from 'styles/theme';
+import appTheme, { colors, ThemeType } from 'styles/theme';
 import IconButton from './IconButton';
 import InputNumber from './InputNumber';
 import SettingsButton from './SettingsButton';
@@ -137,14 +137,32 @@ const TimeGroup = styled.div`
 
 const settings = {
   fonts: ['Kumbh Sans', 'Roboto Slab', 'Space Mono'],
-  colors: [colors.red, colors.cyan, colors.violet],
+  colors: ['red', 'cyan', 'violet'],
 };
 
-type SettingsProps = {};
+type SettingsProps = {
+  handleTheme: (newTheme: ThemeType) => void;
+  handleFont: (font: any) => void;
+  closeModal: () => void;
+};
 
-const Settings: React.FC<SettingsProps> = () => {
+const Settings: React.FC<SettingsProps> = ({
+  handleTheme,
+  handleFont,
+  closeModal,
+}) => {
   const [fontIndex, setFontIndex] = useState(0);
   const [colorIndex, setColorIndex] = useState(0);
+
+  const handleColorClick = (color: string, index: number) => {
+    handleTheme(appTheme[color]);
+    setColorIndex(index);
+  };
+
+  const handleFontClick = (font: string, index: number) => {
+    handleFont(font);
+    setFontIndex(index);
+  };
 
   return (
     <Wrapper>
@@ -152,7 +170,7 @@ const Settings: React.FC<SettingsProps> = () => {
       <Content>
         <Header>
           <Heading>Settings</Heading>
-          <IconButton src={iconClose} />
+          <IconButton src={iconClose} onClick={closeModal} />
         </Header>
         <Body>
           <Heading2>Time (minutes)</Heading2>
@@ -178,7 +196,7 @@ const Settings: React.FC<SettingsProps> = () => {
                   font={font}
                   active={settings.fonts[fontIndex] === font}
                   aria-label={`Font ${font}`}
-                  onClick={() => setFontIndex(index)}
+                  onClick={() => handleFontClick(font, index)}
                 >
                   Aa
                 </SettingsButton>
@@ -192,17 +210,17 @@ const Settings: React.FC<SettingsProps> = () => {
               {settings.colors.map((color, index) => (
                 <SettingsButton
                   key={color}
-                  color={color}
+                  color={colors[color]}
                   checked={settings.colors[colorIndex] === color}
                   aria-label={`Color ${color}`}
-                  onClick={() => setColorIndex(index)}
+                  onClick={() => handleColorClick(color, index)}
                 />
               ))}
             </div>
           </Group>
         </Body>
       </Content>
-      <Button>Apply</Button>
+      <Button onClick={closeModal}>Apply</Button>
     </Wrapper>
   );
 };
