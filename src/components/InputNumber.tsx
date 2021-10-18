@@ -2,12 +2,17 @@ import styled from 'styled-components';
 import arrowDown from 'assets/icon-arrow-down.svg';
 import arrowUp from 'assets/icon-arrow-up.svg';
 import { useState } from 'react';
-import IconButton from './IconButton';
+import media from 'styles/mediaQueries';
+import IconButton from 'components/IconButton';
 
 const Wrapper = styled.div`
   position: relative;
   max-width: 14rem;
   width: 100%;
+
+  @media (${media.md}) {
+    max-width: unset;
+  }
 `;
 
 const Input = styled.input`

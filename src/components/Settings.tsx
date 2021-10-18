@@ -1,41 +1,35 @@
 import iconClose from 'assets/icon-close.svg';
 import { useState } from 'react';
 import styled from 'styled-components';
+import media from 'styles/mediaQueries';
 import appTheme, { colors, ThemeType } from 'styles/theme';
-import IconButton from './IconButton';
-import InputNumber from './InputNumber';
-import SettingsButton from './SettingsButton';
+import IconButton from 'components/IconButton';
+import InputNumber from 'components/InputNumber';
+import Modal from 'components/Modal';
+import SettingsButton from 'components/SettingsButton';
 
-const Wrapper = styled.div`
+const StyledModal = styled(Modal)`
   padding: 4.6rem 2.4rem;
-  position: absolute;
   display: grid;
   grid-template-rows: 1fr auto auto;
-  width: 100%;
-  height: 100%;
-  left: 0;
-  top: 0;
-  z-index: 9999;
 
-  button {
-    cursor: pointer;
+  @media (${media.md}) {
+    padding: 0;
   }
-`;
-const Overlay = styled.div`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  left: 0;
-  top: 0;
-  background-color: #0a0c1c;
-  opacity: 0.5;
-  z-index: -1;
 `;
 
 const Content = styled.div`
+  padding-bottom: 2.7rem;
+  justify-self: center;
+  width: 100%;
+  max-width: 54rem;
   background-color: ${({ theme }) => theme.white};
   border-radius: 1.5rem;
   grid-area: 1 / 1 / 3 / 2;
+
+  @media (${media.md}) {
+    border-radius: 2.5rem;
+  }
 `;
 
 const Header = styled.div`
@@ -44,6 +38,10 @@ const Header = styled.div`
   justify-content: space-between;
   width: 100%;
   border-bottom: 1px solid ${({ theme }) => theme.gray};
+
+  @media (${media.md}) {
+    padding: 3.4rem 4rem 3.1rem;
+  }
 `;
 
 const Body = styled.div`
@@ -53,6 +51,13 @@ const Body = styled.div`
     border: 0;
     border-top: 1px solid ${({ theme }) => theme.gray};
     margin-bottom: 2.4rem;
+  }
+
+  @media (${media.md}) {
+    padding: 2.4rem 4rem 3.2rem;
+    hr {
+      margin: 2.4rem 0;
+    }
   }
 `;
 
@@ -64,6 +69,12 @@ const Group = styled.div`
     display: flex;
     justify-content: center;
     gap: 1.6rem;
+  }
+
+  @media (${media.md}) {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
   }
 `;
 
@@ -106,6 +117,11 @@ const Heading = styled.h2`
   font-size: 2rem;
   line-height: 2.5rem;
   color: ${({ theme }) => theme.dark};
+
+  @media (${media.md}) {
+    font-size: 2.8rem;
+    line-height: 3.5rem;
+  }
 `;
 
 const Heading2 = styled.p`
@@ -117,6 +133,14 @@ const Heading2 = styled.p`
   letter-spacing: 0.42rem;
   text-transform: uppercase;
   color: ${({ theme }) => theme.dark};
+
+  @media (${media.md}) {
+    margin-bottom: 0;
+    font-size: 1.3rem;
+    line-height: 1.6rem;
+    letter-spacing: 0.5rem;
+    text-align: left;
+  }
 `;
 
 const Label = styled.p`
@@ -128,11 +152,28 @@ const Label = styled.p`
 `;
 
 const TimeGroup = styled.div`
-  margin-bottom: 0.8rem;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
+  flex-direction: column;
+
+  & > div {
+    margin-bottom: 0.8rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  @media (${media.md}) {
+    margin-top: 2.6rem;
+    flex-direction: row;
+    gap: 2rem;
+
+    & > div {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+  }
 `;
 
 const settings = {
@@ -165,8 +206,7 @@ const Settings: React.FC<SettingsProps> = ({
   };
 
   return (
-    <Wrapper>
-      <Overlay />
+    <StyledModal>
       <Content>
         <Header>
           <Heading>Settings</Heading>
@@ -175,16 +215,18 @@ const Settings: React.FC<SettingsProps> = ({
         <Body>
           <Heading2>Time (minutes)</Heading2>
           <TimeGroup>
-            <Label>pomodoro</Label>
-            <InputNumber />
-          </TimeGroup>
-          <TimeGroup>
-            <Label>short break</Label>
-            <InputNumber />
-          </TimeGroup>
-          <TimeGroup>
-            <Label>long break</Label>
-            <InputNumber />
+            <div>
+              <Label>pomodoro</Label>
+              <InputNumber />
+            </div>
+            <div>
+              <Label>short break</Label>
+              <InputNumber />
+            </div>
+            <div>
+              <Label>long break</Label>
+              <InputNumber />
+            </div>
           </TimeGroup>
           <hr />
           <Group>
@@ -221,7 +263,7 @@ const Settings: React.FC<SettingsProps> = ({
         </Body>
       </Content>
       <Button onClick={closeModal}>Apply</Button>
-    </Wrapper>
+    </StyledModal>
   );
 };
 

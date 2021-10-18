@@ -3,7 +3,7 @@ import logo from 'assets/logo.svg';
 import media from 'styles/mediaQueries';
 
 const Wrapper = styled.div`
-  margin-top: 3.2rem;
+  padding-top: 3.2rem;
   position: relative;
   display: grid;
   place-content: center;
@@ -15,7 +15,7 @@ const Wrapper = styled.div`
   }
 
   @media (${media.md}) {
-    margin-top: 4.8rem;
+    padding-top: 4.8rem;
 
     img {
       width: 15.6rem;
@@ -24,7 +24,7 @@ const Wrapper = styled.div`
   }
 
   @media (${media.md}) and (orientation: portrait) {
-    margin-top: 8rem;
+    padding-top: 8rem;
   }
 `;
 
