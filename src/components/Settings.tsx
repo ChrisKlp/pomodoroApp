@@ -1,12 +1,13 @@
 import iconClose from 'assets/icon-close.svg';
-import { useState } from 'react';
-import styled from 'styled-components';
-import media from 'styles/mediaQueries';
-import appTheme, { colors, ThemeType } from 'styles/theme';
 import IconButton from 'components/IconButton';
 import InputNumber from 'components/InputNumber';
 import Modal from 'components/Modal';
 import SettingsButton from 'components/SettingsButton';
+import { TState, useAppContext } from 'context/AppContext';
+import useSettings, { TSettings } from 'hooks/useSettings';
+import styled from 'styled-components';
+import media from 'styles/mediaQueries';
+import appTheme, { colors, ThemeType } from 'styles/theme';
 
 const StyledModal = styled(Modal)`
   padding: 4.6rem 2.4rem;
@@ -176,33 +177,26 @@ const TimeGroup = styled.div`
   }
 `;
 
-const settings = {
-  fonts: ['Kumbh Sans', 'Roboto Slab', 'Space Mono'],
-  colors: ['red', 'cyan', 'violet'],
-};
-
 type SettingsProps = {
-  handleTheme: (newTheme: ThemeType) => void;
-  handleFont: (font: any) => void;
+  handleTheme: (settings: TSettings) => void;
   closeModal: () => void;
 };
 
-const Settings: React.FC<SettingsProps> = ({
-  handleTheme,
-  handleFont,
-  closeModal,
-}) => {
-  const [fontIndex, setFontIndex] = useState(0);
-  const [colorIndex, setColorIndex] = useState(0);
+const Settings: React.FC<SettingsProps> = ({ closeModal, handleTheme }) => {
+  const { state, updateState } = useAppContext();
+  const {
+    settings,
+    handleIncrementValue,
+    handleDecrementValue,
+    handleColorClick,
+    handleFontClick,
+    handleInputChange,
+  } = useSettings(state);
 
-  const handleColorClick = (color: string, index: number) => {
-    handleTheme(appTheme[color]);
-    setColorIndex(index);
-  };
-
-  const handleFontClick = (font: string, index: number) => {
-    handleFont(font);
-    setFontIndex(index);
+  const handleApplyClick = () => {
+    handleTheme(settings);
+    updateState(settings);
+    closeModal();
   };
 
   return (
@@ -215,30 +209,30 @@ const Settings: React.FC<SettingsProps> = ({
         <Body>
           <Heading2>Time (minutes)</Heading2>
           <TimeGroup>
-            <div>
-              <Label>pomodoro</Label>
-              <InputNumber />
-            </div>
-            <div>
-              <Label>short break</Label>
-              <InputNumber />
-            </div>
-            <div>
-              <Label>long break</Label>
-              <InputNumber />
-            </div>
+            {settings.timers.map(({ name, value }) => (
+              <div key={name}>
+                <Label>{name}</Label>
+                <InputNumber
+                  name={name}
+                  value={value}
+                  valueUp={() => handleIncrementValue(name)}
+                  valueDown={() => handleDecrementValue(name)}
+                  onChange={handleInputChange}
+                />
+              </div>
+            ))}
           </TimeGroup>
           <hr />
           <Group>
             <Heading2>Font</Heading2>
             <div>
-              {settings.fonts.map((font, index) => (
+              {state.fonts.map((font) => (
                 <SettingsButton
                   key={font}
                   font={font}
-                  active={settings.fonts[fontIndex] === font}
+                  active={settings.activeFont === font}
                   aria-label={`Font ${font}`}
-                  onClick={() => handleFontClick(font, index)}
+                  onClick={() => handleFontClick(font)}
                 >
                   Aa
                 </SettingsButton>
@@ -249,20 +243,20 @@ const Settings: React.FC<SettingsProps> = ({
           <Group>
             <Heading2>Color</Heading2>
             <div>
-              {settings.colors.map((color, index) => (
+              {state.colors.map((color) => (
                 <SettingsButton
                   key={color}
                   color={colors[color]}
-                  checked={settings.colors[colorIndex] === color}
+                  checked={settings.activeColor === color}
                   aria-label={`Color ${color}`}
-                  onClick={() => handleColorClick(color, index)}
+                  onClick={() => handleColorClick(color)}
                 />
               ))}
             </div>
           </Group>
         </Body>
       </Content>
-      <Button onClick={closeModal}>Apply</Button>
+      <Button onClick={handleApplyClick}>Apply</Button>
     </StyledModal>
   );
 };

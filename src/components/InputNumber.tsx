@@ -50,40 +50,38 @@ const Group = styled.div`
   }
 `;
 
-type InputNumberProps = {};
+type InputNumberProps = {
+  name: string;
+  value: number;
+  valueUp: () => void;
+  valueDown: () => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+};
 
-const InputNumber: React.FC<InputNumberProps> = () => {
-  const [number, setNumber] = useState(0);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = Number(e.target.value);
-    if (value > 59) {
-      setNumber(Number(59));
-    } else {
-      setNumber(value);
-    }
-  };
-
+const InputNumber: React.FC<InputNumberProps> = ({
+  name,
+  value,
+  valueUp,
+  valueDown,
+  onChange,
+}) => {
   return (
     <Wrapper>
       <Input
         type="number"
-        value={number}
-        onChange={handleChange}
+        name={name}
+        value={value}
+        onChange={onChange}
         min={0}
         max={59}
       />
       <Group>
         <IconButton
           src={arrowUp}
-          onClick={() => setNumber((prev) => prev + 1)}
-          disabled={number >= 59}
+          onClick={() => valueUp()}
+          disabled={value >= 59}
         />
-        <IconButton
-          src={arrowDown}
-          onClick={() => setNumber((prev) => prev - 1)}
-          disabled={number <= 0}
-        />
+        <IconButton src={arrowDown} onClick={valueDown} disabled={value <= 0} />
       </Group>
     </Wrapper>
   );

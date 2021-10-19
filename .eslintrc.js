@@ -7,6 +7,7 @@ module.exports = {
     'airbnb',
     'airbnb-typescript',
     'plugin:@typescript-eslint/recommended',
+    'plugin:react-hooks/recommended',
     'prettier',
   ],
   parser: '@typescript-eslint/parser',
@@ -28,5 +29,6 @@ module.exports = {
     'react/prop-types': 'off',
     '@typescript-eslint/ban-types': 'warn',
     '@typescript-eslint/no-empty-interface': 'off',
+    'no-case-declarations': 'off',
   },
 };

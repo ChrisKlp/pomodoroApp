@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import SVG from 'react-inlinesvg';
 
 const Icon = styled(SVG)`
@@ -7,7 +7,7 @@ const Icon = styled(SVG)`
   }
 `;
 
-const Wrapper = styled.button`
+const Wrapper = styled.button<{ disabled?: boolean }>`
   cursor: pointer;
   display: block;
 
@@ -15,6 +15,12 @@ const Wrapper = styled.button`
     opacity: 1;
     stroke-opacity: 1;
   }
+
+  ${({ disabled }) =>
+    disabled &&
+    css`
+      pointer-events: none;
+    `};
 `;
 
 type IconProps = {
