@@ -32,7 +32,9 @@ const App: React.FC = () => {
         timeValue={activeTimer.value}
         key={activeTimer.value || activeTimer.name}
       />
-      <SettingsButton onClick={() => setIsOpen(true)} />
+      <footer>
+        <SettingsButton onClick={() => setIsOpen(true)} />
+      </footer>
       {isOpen && (
         <Settings
           handleTheme={handleTheme}

@@ -4,7 +4,7 @@ import media from 'styles/mediaQueries';
 
 const STROKE_DASH_ARRAY = 754;
 
-const Wrapper = styled.div`
+const Wrapper = styled.main`
   margin: 0 auto;
   position: relative;
   padding: 1.6rem;

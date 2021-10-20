@@ -2,7 +2,7 @@ import { useAppContext } from 'context/AppContext';
 import styled, { css } from 'styled-components';
 import media from 'styles/mediaQueries';
 
-const Wrapper = styled.div`
+const Wrapper = styled.nav`
   position: relative;
   display: flex;
   margin: 4.5rem auto 4.8rem;
