@@ -2,7 +2,7 @@ import iconClose from 'assets/icon-close.svg';
 import IconButton from 'components/IconButton';
 import InputNumber from 'components/InputNumber';
 import Modal from 'components/Modal';
-import SettingsButton from 'components/SettingsButton';
+import SettingsSelectButton from 'components/SettingsSelectButton';
 import { TState, useAppContext } from 'context/AppContext';
 import useSettings, { TSettings } from 'hooks/useSettings';
 import styled from 'styled-components';
@@ -227,7 +227,7 @@ const Settings: React.FC<SettingsProps> = ({ closeModal, handleTheme }) => {
             <Heading2>Font</Heading2>
             <div>
               {state.fonts.map((font) => (
-                <SettingsButton
+                <SettingsSelectButton
                   key={font}
                   font={font}
                   active={settings.activeFont === font}
@@ -235,7 +235,7 @@ const Settings: React.FC<SettingsProps> = ({ closeModal, handleTheme }) => {
                   onClick={() => handleFontClick(font)}
                 >
                   Aa
-                </SettingsButton>
+                </SettingsSelectButton>
               ))}
             </div>
           </Group>
@@ -244,7 +244,7 @@ const Settings: React.FC<SettingsProps> = ({ closeModal, handleTheme }) => {
             <Heading2>Color</Heading2>
             <div>
               {state.colors.map((color) => (
-                <SettingsButton
+                <SettingsSelectButton
                   key={color}
                   color={colors[color]}
                   checked={settings.activeColor === color}

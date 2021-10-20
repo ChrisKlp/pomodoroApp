@@ -1,58 +1,25 @@
-import styled, { css } from 'styled-components';
-import iconCheck from 'assets/icon-check.svg';
+import styled from 'styled-components';
+import media from 'styles/mediaQueries';
+import IconButton from 'components/IconButton';
+import settingsIcon from 'assets/icon-settings.svg';
 
-const SettingsButton = styled.button<{
-  color?: string;
-  font?: string;
-  active?: boolean;
-  checked?: boolean;
-}>`
-  position: relative;
-  width: 4rem;
-  height: 4rem;
-  background-color: ${({ theme, color }) => color || theme.gray};
-  border-radius: 50%;
-  font-family: ${({ font }) => font || 'Kumbh Sans'};
-  font-weight: bold;
-  font-size: 1.5rem;
-  color: ${({ theme }) => theme.dark};
-  text-align: center;
+const Button = styled(IconButton)`
+  margin: 7.9rem auto 4.8rem;
 
-  ::before {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 5rem;
-    height: 5rem;
-    border: 1px solid ${({ theme }) => theme.gray};
-    border-radius: 50%;
-    transform: translate(-50%, -50%) scale(0.8);
-    transition: transform 0.2s, opacity 0.2s;
-    opacity: 0;
-    content: '';
+  @media (${media.md}) {
+    margin: 6.3rem auto 5.6rem;
   }
 
-  :hover {
-    ::before {
-      transform: translate(-50%, -50%) scale(1);
-      opacity: 1;
-    }
+  @media (${media.md}) and (orientation: portrait) {
+    margin: 14.4rem auto 8rem;
   }
-
-  ${({ active }) =>
-    active &&
-    css`
-      background-color: ${({ theme }) => theme.dark};
-      color: ${({ theme }) => theme.white};
-    `};
-
-  ${({ checked }) =>
-    checked &&
-    css`
-      ::after {
-        content: url(${iconCheck});
-      }
-    `};
 `;
 
+type SettingsButtonProps = {
+  onClick: () => void;
+};
+
+const SettingsButton: React.FC<SettingsButtonProps> = ({ onClick }) => {
+  return <Button src={settingsIcon} onClick={onClick} />;
+};
 export default SettingsButton;

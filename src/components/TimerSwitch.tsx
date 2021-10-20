@@ -71,7 +71,7 @@ type SwitchProps = {
   className?: string;
 };
 
-const Switch: React.FC<SwitchProps> = () => {
+const TimerSwitch: React.FC<SwitchProps> = () => {
   const [buttonIndex, setButtonIndex] = useState(0);
 
   return (
@@ -89,4 +89,4 @@ const Switch: React.FC<SwitchProps> = () => {
   );
 };
 
-export default Switch;
+export default TimerSwitch;
