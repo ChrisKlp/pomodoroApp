@@ -3,11 +3,11 @@ import IconButton from 'components/IconButton';
 import InputNumber from 'components/InputNumber';
 import Modal from 'components/Modal';
 import SettingsSelectButton from 'components/SettingsSelectButton';
-import { TState, useAppContext } from 'context/AppContext';
+import { useAppContext } from 'context/AppContext';
 import useSettings, { TSettings } from 'hooks/useSettings';
 import styled from 'styled-components';
 import media from 'styles/mediaQueries';
-import appTheme, { colors, ThemeType } from 'styles/theme';
+import { colors } from 'styles/theme';
 
 const StyledModal = styled(Modal)`
   padding: 4.6rem 2.4rem;

@@ -30,5 +30,6 @@ module.exports = {
     '@typescript-eslint/ban-types': 'warn',
     '@typescript-eslint/no-empty-interface': 'off',
     'no-case-declarations': 'off',
+    'no-nested-ternary': 'off',
   },
 };

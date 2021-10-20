@@ -1,5 +1,8 @@
+import useTimer from 'hooks/useTimer';
 import styled from 'styled-components';
 import media from 'styles/mediaQueries';
+
+const STROKE_DASH_ARRAY = 754;
 
 const Wrapper = styled.div`
   margin: 0 auto;
@@ -44,7 +47,7 @@ const Content = styled.div`
   z-index: 0;
 `;
 
-const ProgressBar = styled.svg`
+const ProgressBar = styled.svg<{ progress: number }>`
   position: absolute;
   width: 100%;
   height: 100%;
@@ -56,15 +59,9 @@ const ProgressBar = styled.svg`
     fill: none;
     stroke-width: 8;
     stroke-linecap: round;
-    stroke-dasharray: 754;
-    stroke-dashoffset: 0;
-    animation: anim 10s;
-  }
-
-  @keyframes anim {
-    100% {
-      stroke-dashoffset: 754;
-    }
+    stroke-dasharray: ${STROKE_DASH_ARRAY};
+    stroke-dashoffset: ${({ progress }) => progress};
+    transition: stroke-dashoffset 0.2s;
   }
 `;
 
@@ -103,9 +100,21 @@ const Button = styled.button`
   }
 `;
 
-type TimerProps = {};
+type TimerProps = {
+  timeValue: number;
+};
 
-const Timer: React.FC<TimerProps> = () => {
+const Timer: React.FC<TimerProps> = ({ timeValue }) => {
+  const {
+    time,
+    totalTime,
+    handleControllerClick,
+    controllerLabel,
+    formattedTime,
+  } = useTimer(timeValue);
+
+  const handleProgress = (STROKE_DASH_ARRAY / totalTime) * (totalTime - time);
+
   return (
     <Wrapper>
       <Background>
@@ -114,11 +123,12 @@ const Timer: React.FC<TimerProps> = () => {
             xmlns="http://www.w3.org/2000/svg"
             version="1.1"
             viewBox="0, 0, 248, 248"
+            progress={handleProgress}
           >
             <circle cx="124" cy="124" r="120" />
           </ProgressBar>
-          <Time>17:59</Time>
-          <Button>PAUSE</Button>
+          <Time>{formattedTime}</Time>
+          <Button onClick={handleControllerClick}>{controllerLabel}</Button>
         </Content>
       </Background>
     </Wrapper>

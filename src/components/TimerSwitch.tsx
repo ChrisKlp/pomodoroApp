@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useAppContext } from 'context/AppContext';
 import styled, { css } from 'styled-components';
 import media from 'styles/mediaQueries';
 
@@ -55,32 +55,20 @@ const Button = styled.button<{ active?: boolean }>`
     `};
 `;
 
-const buttons = [
-  {
-    name: 'pomodoro',
-  },
-  {
-    name: 'short break',
-  },
-  {
-    name: 'long break',
-  },
-];
-
 type SwitchProps = {
   className?: string;
 };
 
 const TimerSwitch: React.FC<SwitchProps> = () => {
-  const [buttonIndex, setButtonIndex] = useState(0);
+  const { state, switchTimer } = useAppContext();
 
   return (
     <Wrapper>
-      {buttons.map(({ name }, index) => (
+      {state.timers.map(({ name, value }) => (
         <Button
           key={name}
-          active={buttons[buttonIndex].name === name}
-          onClick={() => setButtonIndex(index)}
+          active={state.activeTimer.name === name}
+          onClick={() => switchTimer(name, value)}
         >
           {name}
         </Button>
